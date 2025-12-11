@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: 'standalone',
+  // output: 'standalone', // Vercel için gerekli değil, otomatik algılanır
   experimental: {
     outputFileTracingRoot: require('path').join(__dirname, '../../'),
   },

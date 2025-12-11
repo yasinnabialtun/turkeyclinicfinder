@@ -35,16 +35,15 @@ export default function LeadsManagementPage() {
     setLoading(true);
     setError(null);
     try {
-      // Note: This endpoint may require authentication on backend
-      // For now, making request without auth token
-      const response = await fetch(`/api/v1/leads?status=${statusFilter !== 'all' ? statusFilter : ''}&page=${page}&page_size=${pageSize}`);
+      const response = await apiClient.getLeads({
+        status: statusFilter !== 'all' ? statusFilter : undefined,
+        page,
+        page_size: pageSize,
+      });
       
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          setLeads(data.data.items || []);
-          setTotal(data.data.total || 0);
-        }
+      if (response.success) {
+        setLeads(response.data.items || []);
+        setTotal(response.data.total || 0);
       } else {
         setError('Failed to load leads. Please check authentication.');
       }

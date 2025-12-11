@@ -1,9 +1,25 @@
+// Get site URL from environment or use default
+const getSiteUrl = () => {
+  // Check for environment variable first
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL;
+  }
+  // Check for Vercel URL
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // Default fallback
+  return 'https://turkeyclinicfinder.vercel.app';
+};
+
+const siteUrl = getSiteUrl();
+
 export const siteConfig = {
   name: 'Turkey Clinic Finder',
-  url: 'https://turkeyclinicfinder.com',
+  url: siteUrl,
   description: 'Find the best medical clinics in Turkey. Compare prices, read reviews, and book your medical tourism journey. Hair transplant, dental care, plastic surgery, and more.',
   keywords: 'medical tourism turkey, turkey clinics, hair transplant turkey, dental tourism turkey, plastic surgery turkey, medical tourism, turkey medical tourism, best clinics turkey, verified clinics turkey',
-  ogImage: 'https://turkeyclinicfinder.com/og-image.jpg',
+  ogImage: `${siteUrl}/og-image.jpg`,
   twitterHandle: '@turkeyclinicfinder',
 };
 
@@ -31,8 +47,8 @@ export function generateStructuredData(type: string, data: any) {
 export function generateOrganizationSchema() {
   return generateStructuredData('Organization', {
     name: 'Turkey Clinic Finder',
-    url: 'https://turkeyclinicfinder.com',
-    logo: 'https://turkeyclinicfinder.com/logo.png',
+    url: siteConfig.url,
+    logo: `${siteConfig.url}/logo.png`,
     description: 'Your trusted partner for medical tourism in Turkey. Find verified medical clinics, compare prices, and read authentic reviews.',
     sameAs: [
       'https://www.facebook.com/turkeyclinicfinder',
@@ -52,9 +68,9 @@ export function generateOrganizationSchema() {
 export function generateLocalBusinessSchema() {
   return generateStructuredData('LocalBusiness', {
     name: 'Turkey Clinic Finder',
-    image: 'https://turkeyclinicfinder.com/og-image.jpg',
-    '@id': 'https://turkeyclinicfinder.com',
-    url: 'https://turkeyclinicfinder.com',
+    image: siteConfig.ogImage,
+    '@id': siteConfig.url,
+    url: siteConfig.url,
     telephone: '+90-XXX-XXX-XX-XX',
     priceRange: '$$',
     address: {
@@ -81,7 +97,7 @@ export function generateMedicalBusinessSchema() {
   return generateStructuredData('MedicalBusiness', {
     name: 'Turkey Clinic Finder',
     description: 'Find verified medical clinics in Turkey for hair transplant, dental care, plastic surgery, and more.',
-    url: 'https://turkeyclinicfinder.com',
+    url: siteConfig.url,
     medicalSpecialty: [
       'Hair Transplant',
       'Dental Care',
@@ -121,7 +137,7 @@ export function generateClinicSchema(clinic: any) {
       : undefined,
     priceRange: '$$',
     telephone: clinic.phone,
-    url: `https://turkeyclinicfinder.com/clinic/${clinic.id}`,
+    url: `${siteConfig.url}/clinic/${clinic.id}`,
   });
 }
 
@@ -136,7 +152,7 @@ export function generateArticleSchema(article: {
   return generateStructuredData('Article', {
     headline: article.title,
     description: article.description,
-    image: article.image || 'https://turkeyclinicfinder.com/og-image.jpg',
+    image: article.image || siteConfig.ogImage,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     author: {
@@ -148,7 +164,7 @@ export function generateArticleSchema(article: {
       name: 'Turkey Clinic Finder',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://turkeyclinicfinder.com/logo.png',
+        url: `${siteConfig.url}/logo.png`,
       },
     },
     mainEntityOfPage: {

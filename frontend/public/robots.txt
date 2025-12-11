@@ -8,8 +8,8 @@ Disallow: /_next/
 Disallow: /private/
 
 # Sitemap
-Sitemap: https://turkeyclinicfinder.com/sitemap.xml
-Sitemap: https://turkeyclinicfinder.com/sitemap
+Sitemap: https://turkeyclinicfinder.vercel.app/sitemap.xml
+Sitemap: https://turkeyclinicfinder.vercel.app/sitemap
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

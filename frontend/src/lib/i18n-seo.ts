@@ -35,7 +35,8 @@ export function getSEOConfig(lang: 'en' | 'tr' | 'ar' = 'en') {
 }
 
 export function generateHreflangTags(path: string) {
-  const baseUrl = 'https://turkeyclinicfinder.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://turkeyclinicfinder.vercel.app');
   return [
     { hreflang: 'en', href: `${baseUrl}${path}` },
     { hreflang: 'tr', href: `${baseUrl}/tr${path}` },

@@ -2,13 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // output: 'standalone', // Vercel için gerekli değil, otomatik algılanır
-  experimental: {
-    outputFileTracingRoot: require('path').join(__dirname, '../../'),
-  },
   // Image optimization for PageSpeed 100
   images: {
-    domains: ['turkeyclinicfinder.com', 'www.turkeyclinicfinder.com'],
+    domains: ['turkeyclinicfinder.com', 'www.turkeyclinicfinder.com', 'turkeyclinicfinder.vercel.app'],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

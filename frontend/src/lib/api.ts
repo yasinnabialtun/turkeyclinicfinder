@@ -95,6 +95,15 @@ class APIClient {
     return response.data;
   }
 
+  async getLeads(params?: {
+    status?: string;
+    page?: number;
+    page_size?: number;
+  }) {
+    const response = await this.client.get('/v1/leads', { params });
+    return response.data;
+  }
+
   async createLead(data: {
     clinic_id?: number | null;
     name: string;

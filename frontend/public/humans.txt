@@ -1,0 +1,16 @@
+/* TEAM */
+Developer: Turkey Clinic Finder Team
+Contact: info@ynadijital.com
+From: Istanbul, Turkey
+
+/* THANKS */
+Next.js Team
+Tailwind CSS Team
+FastAPI Team
+
+/* SITE */
+Last update: 2026/02/01
+Standards: HTML5, CSS3, JavaScript ES6+
+Components: React, Next.js, TypeScript
+Software: Visual Studio Code, Git
+

@@ -1,0 +1,26 @@
+{
+  "title": "Türkiye Klinik Bulucu",
+  "description": "Türkiye'deki en iyi tıp kliniklerini bulun",
+  "search": "Ara",
+  "clinics": "Klinikler",
+  "treatments": "Tedaviler",
+  "reviews": "Yorumlar",
+  "about": "Hakkında",
+  "contact": "İletişim",
+  "login": "Giriş",
+  "signup": "Kayıt Ol",
+  "logout": "Çıkış",
+  "dashboard": "Kontrol Paneli",
+  "city": "Şehir",
+  "rating": "Değerlendirme",
+  "price": "Fiyat",
+  "viewDetails": "Detayları Görüntüle",
+  "compare": "Karşılaştır",
+  "filter": "Filtrele",
+  "sort": "Sırala",
+  "noResults": "Sonuç bulunamadı",
+  "loading": "Yükleniyor...",
+  "error": "Hata",
+  "tryAgain": "Tekrar Dene"
+}
+

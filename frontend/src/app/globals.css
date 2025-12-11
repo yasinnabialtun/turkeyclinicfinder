@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Performance: Reduce layout shifts */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+/* Optimize font rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  /* Prevent layout shift */
+  min-height: 100vh;
+}
+
+/* Optimize images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* RTL support for Arabic */
+[dir='rtl'] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Prose styles for blog content */
+.prose {
+  @apply text-gray-700;
+}
+
+.prose h2 {
+  @apply text-2xl font-bold mt-8 mb-4 text-gray-900;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold mt-6 mb-3 text-gray-900;
+}
+
+.prose p {
+  @apply mb-4 leading-relaxed;
+}
+
+.prose ul {
+  @apply list-disc list-inside mb-4 space-y-2;
+}
+
+.prose ol {
+  @apply list-decimal list-inside mb-4 space-y-2;
+}
+
+.prose a {
+  @apply text-blue-600 hover:text-blue-700 underline;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

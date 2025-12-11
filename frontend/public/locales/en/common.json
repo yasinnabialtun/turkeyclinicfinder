@@ -1,0 +1,26 @@
+{
+  "title": "Turkey Clinic Finder",
+  "description": "Find the best medical clinics in Turkey",
+  "search": "Search",
+  "clinics": "Clinics",
+  "treatments": "Treatments",
+  "reviews": "Reviews",
+  "about": "About",
+  "contact": "Contact",
+  "login": "Login",
+  "signup": "Sign Up",
+  "logout": "Logout",
+  "dashboard": "Dashboard",
+  "city": "City",
+  "rating": "Rating",
+  "price": "Price",
+  "viewDetails": "View Details",
+  "compare": "Compare",
+  "filter": "Filter",
+  "sort": "Sort",
+  "noResults": "No results found",
+  "loading": "Loading...",
+  "error": "Error",
+  "tryAgain": "Try Again"
+}
+

@@ -1,0 +1,2 @@
+"""TurkeyClinicFinder Backend Application"""
+

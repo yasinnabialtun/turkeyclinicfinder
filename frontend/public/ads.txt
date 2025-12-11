@@ -1,0 +1,6 @@
+# ads.txt file for Turkey Clinic Finder
+# This file helps verify authorized digital sellers for our website
+
+# Google AdSense
+google.com, pub-3511256754647083, DIRECT, f08c47fec0942fa0
+

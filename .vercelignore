@@ -1,0 +1,15 @@
+backend/
+db/
+docs/
+infra/
+scripts/
+*.md
+!README.md
+docker-compose.yml
+*.yaml
+*.yml
+!vercel.json
+.git/
+.env
+.env.*
+

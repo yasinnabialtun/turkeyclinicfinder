@@ -1,53 +1,56 @@
-# TurkeyClinicFinder
+# Turkey Clinic Finder
 
 A comprehensive medical tourism marketplace platform for finding and comparing clinics in Turkey. Built with Next.js, FastAPI, PostgreSQL, and AI-powered matching.
 
 ## Features
 
-- 🌍 **Multi-language Support**: English, Arabic, and Turkish
-- 🔍 **AI-Powered Clinic Matching**: Intelligent clinic recommendations based on treatment needs
-- 💰 **Price Estimator**: Estimate treatment costs
-- ⭐ **Reviews & Sentiment Analysis**: Patient reviews with AI-powered sentiment analysis
-- 🏥 **Clinic Management**: Admin and clinic owner dashboards
-- 📊 **Advanced Search**: Filter by city, treatment, price range
-- 🔐 **Secure Authentication**: JWT-based auth with role-based access control
-- 🐳 **Docker Support**: Full containerization for easy deployment
+* 🌍 **Multi-language Support**: English, Arabic, and Turkish
+* 🔍 **AI-Powered Clinic Matching**: Intelligent clinic recommendations based on treatment needs
+* 💰 **Price Estimator**: Estimate treatment costs
+* ⭐ **Reviews & Sentiment Analysis**: Patient reviews with AI-powered sentiment analysis
+* 🏥 **Clinic Management**: Admin and clinic owner dashboards
+* 📊 **Advanced Search**: Filter by city, treatment, price range
+* 🔐 **Secure Authentication**: JWT-based auth with role-based access control
+* 🐳 **Docker Support**: Full containerization for easy deployment
 
 ## Tech Stack
 
 ### Backend
-- **FastAPI** (Python 3.11+) - Modern, fast web framework
-- **PostgreSQL** - Primary database
-- **Redis** - Caching and session storage
-- **SQLAlchemy** - ORM with Alembic migrations
-- **OpenAI API** - AI embeddings and content generation
-- **Pinecone** (Optional) - Vector database for semantic search
+
+* **FastAPI** (Python 3.11+) - Modern, fast web framework
+* **PostgreSQL** - Primary database
+* **Redis** - Caching and session storage
+* **SQLAlchemy** - ORM with Alembic migrations
+* **OpenAI API** - AI embeddings and content generation
+* **Pinecone** (Optional) - Vector database for semantic search
 
 ### Frontend
-- **Next.js 14** - React framework with SSR
-- **TypeScript** - Type-safe development
-- **TailwindCSS** - Utility-first CSS
-- **next-i18next** - Internationalization
-- **Axios** - HTTP client
+
+* **Next.js 14** - React framework with SSR
+* **TypeScript** - Type-safe development
+* **TailwindCSS** - Utility-first CSS
+* **next-i18next** - Internationalization
+* **Axios** - HTTP client
 
 ### DevOps
-- **Docker & Docker Compose** - Containerization
-- **GitHub Actions** - CI/CD pipeline
-- **Alembic** - Database migrations
+
+* **Docker & Docker Compose** - Containerization
+* **GitHub Actions** - CI/CD pipeline
+* **Alembic** - Database migrations
 
 ## Quick Start
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Python 3.11+ (for local development)
-- Node.js 18+ (for local development)
+* Docker and Docker Compose
+* Python 3.11+ (for local development)
+* Node.js 18+ (for local development)
 
 ### Local Development Setup
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/yasinnabialtun/turkeyclinicfinder.git
    cd turkeyclinicfinder
    ```
 
@@ -57,9 +60,9 @@ A comprehensive medical tourism marketplace platform for finding and comparing c
    ```
 
 3. **Update `.env` with your configuration**
-   - Set `SECRET_KEY` to a secure random string
-   - Add `OPENAI_API_KEY` if you want AI features
-   - Configure other services as needed
+   * Set `SECRET_KEY` to a secure random string
+   * Add `OPENAI_API_KEY` if you want AI features
+   * Configure other services as needed
 
 4. **Start services with Docker Compose**
    ```bash
@@ -83,9 +86,9 @@ A comprehensive medical tourism marketplace platform for finding and comparing c
    ```
 
 8. **Access the application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000
-   - API Docs: http://localhost:8000/api/docs
+   * Frontend: http://localhost:3000
+   * Backend API: http://localhost:8000
+   * API Docs: http://localhost:8000/api/docs
 
 ### Manual Setup (Without Docker)
 
@@ -141,53 +144,61 @@ A comprehensive medical tourism marketplace platform for finding and comparing c
 
 See `.env.example` for all required environment variables. Key variables:
 
-- `DATABASE_URL` - PostgreSQL connection string
-- `REDIS_URL` - Redis connection string
-- `SECRET_KEY` - Secret key for JWT tokens (required)
-- `OPENAI_API_KEY` - OpenAI API key for AI features (optional)
-- `NEXT_PUBLIC_API_URL` - Backend API URL for frontend
+* `DATABASE_URL` - PostgreSQL connection string
+* `REDIS_URL` - Redis connection string
+* `SECRET_KEY` - Secret key for JWT tokens (required)
+* `OPENAI_API_KEY` - OpenAI API key for AI features (optional)
+* `NEXT_PUBLIC_API_URL` - Backend API URL for frontend
 
 ## API Documentation
 
 Once the backend is running, visit:
-- **Swagger UI**: http://localhost:8000/api/docs
-- **ReDoc**: http://localhost:8000/api/redoc
+
+* **Swagger UI**: http://localhost:8000/api/docs
+* **ReDoc**: http://localhost:8000/api/redoc
 
 ### Key Endpoints
 
 #### Authentication
-- `POST /api/auth/signup` - User registration
-- `POST /api/auth/login` - User login
-- `POST /api/auth/refresh` - Refresh access token
-- `GET /api/auth/me` - Get current user
+
+* `POST /api/auth/signup` - User registration
+* `POST /api/auth/login` - User login
+* `POST /api/auth/refresh` - Refresh access token
+* `GET /api/auth/me` - Get current user
 
 #### Clinics
-- `GET /api/clinics` - List clinics (with filters)
-- `GET /api/clinics/{id}` - Get clinic details
-- `POST /api/clinics` - Create clinic (requires auth)
-- `PUT /api/clinics/{id}` - Update clinic (clinic owner)
+
+* `GET /api/clinics` - List clinics (with filters)
+* `GET /api/clinics/{id}` - Get clinic details
+* `POST /api/clinics` - Create clinic (requires auth)
+* `PUT /api/clinics/{id}` - Update clinic (clinic owner)
 
 #### Search & Match
-- `POST /api/search/match` - AI-powered clinic matching
-- `GET /api/search/suggest` - Search suggestions
+
+* `POST /api/search/match` - AI-powered clinic matching
+* `GET /api/search/suggest` - Search suggestions
 
 #### Reviews
-- `GET /api/reviews/clinics/{id}/reviews` - Get clinic reviews
-- `POST /api/reviews/clinics/{id}/reviews` - Create review
-- `GET /api/reviews/summary/{id}` - Get review summary with sentiment
+
+* `GET /api/reviews/clinics/{id}/reviews` - Get clinic reviews
+* `POST /api/reviews/clinics/{id}/reviews` - Create review
+* `GET /api/reviews/summary/{id}` - Get review summary with sentiment
 
 #### AI
-- `POST /api/ai/generate-article` - Generate SEO article
-- `POST /api/ai/sentiment` - Analyze sentiment
+
+* `POST /api/ai/generate-article` - Generate SEO article
+* `POST /api/ai/sentiment` - Analyze sentiment
 
 #### Admin
-- `GET /api/admin/clinics` - List clinics (admin)
-- `POST /api/admin/clinics/{id}/approve` - Approve clinic
-- `GET /api/admin/stats` - Dashboard statistics
+
+* `GET /api/admin/clinics` - List clinics (admin)
+* `POST /api/admin/clinics/{id}/approve` - Approve clinic
+* `GET /api/admin/stats` - Dashboard statistics
 
 ## Testing
 
 ### Backend Tests
+
 ```bash
 cd backend
 pytest
@@ -195,6 +206,7 @@ pytest --cov=app --cov-report=html
 ```
 
 ### Frontend Tests
+
 ```bash
 cd frontend
 npm test
@@ -204,17 +216,20 @@ npm test -- --coverage
 ## Database Migrations
 
 ### Create a new migration
+
 ```bash
 cd backend
 alembic revision --autogenerate -m "description"
 ```
 
 ### Apply migrations
+
 ```bash
 alembic upgrade head
 ```
 
 ### Rollback migration
+
 ```bash
 alembic downgrade -1
 ```
@@ -224,10 +239,10 @@ alembic downgrade -1
 ### Docker Compose Production
 
 1. **Update `.env` with production values**
-   - Set `DEBUG=false`
-   - Use strong `SECRET_KEY`
-   - Configure production database
-   - Set up proper CORS origins
+   * Set `DEBUG=false`
+   * Use strong `SECRET_KEY`
+   * Configure production database
+   * Set up proper CORS origins
 
 2. **Build and start**
    ```bash
@@ -267,12 +282,12 @@ turkeyclinicfinder/
 
 ## Security
 
-- JWT authentication with refresh tokens
-- Password hashing with bcrypt
-- Rate limiting on API endpoints
-- Input validation with Pydantic
-- CORS configuration
-- SQL injection protection via SQLAlchemy
+* JWT authentication with refresh tokens
+* Password hashing with bcrypt
+* Rate limiting on API endpoints
+* Input validation with Pydantic
+* CORS configuration
+* SQL injection protection via SQLAlchemy
 
 ## Contributing
 
@@ -289,15 +304,19 @@ MIT License - see LICENSE file for details
 ## Support
 
 For issues and questions:
-- Open an issue on GitHub
-- Check the documentation in `/docs`
+
+* Open an issue on GitHub
+* Check the documentation in `/docs`
 
 ## Roadmap
 
-- [ ] Elasticsearch integration for advanced search
-- [ ] Real-time notifications
-- [ ] Payment integration
-- [ ] Mobile app (React Native)
-- [ ] Advanced analytics dashboard
-- [ ] Multi-currency support
+* Elasticsearch integration for advanced search
+* Real-time notifications
+* Payment integration
+* Mobile app (React Native)
+* Advanced analytics dashboard
+* Multi-currency support
 
+## About
+
+Live at: [turkeyclinicfinder.vercel.app](https://turkeyclinicfinder.vercel.app)

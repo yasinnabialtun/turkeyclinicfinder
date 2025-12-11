@@ -50,13 +50,32 @@ class APIClient {
     page?: number;
     page_size?: number;
   }) {
-    const response = await this.client.get('/clinics', { params });
-    return response.data;
+    try {
+      const response = await this.client.get('/clinics', { params });
+      return response.data;
+    } catch (error: any) {
+      console.error('Error fetching clinics:', error);
+      // Return empty result instead of throwing
+      return {
+        success: false,
+        data: { items: [], total: 0 },
+        message: error.response?.data?.detail || 'Failed to fetch clinics',
+      };
+    }
   }
 
   async getClinic(id: number) {
-    const response = await this.client.get(`/clinics/${id}`);
-    return response.data;
+    try {
+      const response = await this.client.get(`/clinics/${id}`);
+      return response.data;
+    } catch (error: any) {
+      console.error('Error fetching clinic:', error);
+      return {
+        success: false,
+        data: null,
+        message: error.response?.data?.detail || 'Failed to fetch clinic',
+      };
+    }
   }
 
   async matchClinics(data: {

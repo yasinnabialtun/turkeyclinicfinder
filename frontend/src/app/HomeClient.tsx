@@ -41,83 +41,94 @@ export default function HomeClient() {
       <ModernHero />
       <ModernFeatures />
       
-      {/* Statistics Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Trusted by Thousands of Patients Worldwide</h2>
-            <p className="text-xl text-blue-100">Join over 50,000 patients who found their perfect clinic through Turkey Clinic Finder</p>
+      {/* Enhanced Statistics Section */}
+      <div className="bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">Trusted by Thousands of Patients Worldwide</h2>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">Join over 50,000 patients who found their perfect clinic through Turkey Clinic Finder</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-5xl font-bold mb-2">500+</div>
-              <div className="text-blue-100 text-lg">Verified Clinics</div>
-              <div className="text-blue-200 text-sm mt-1">JCI & ISO Accredited</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold mb-2">50K+</div>
-              <div className="text-blue-100 text-lg">Patients Helped</div>
-              <div className="text-blue-200 text-sm mt-1">From 80+ Countries</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold mb-2">25+</div>
-              <div className="text-blue-100 text-lg">Medical Specialties</div>
-              <div className="text-blue-200 text-sm mt-1">Comprehensive Coverage</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold mb-2">4.7/5</div>
-              <div className="text-blue-100 text-lg">Average Rating</div>
-              <div className="text-blue-200 text-sm mt-1">Patient Satisfaction</div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { value: '500+', label: 'Verified Clinics', sublabel: 'JCI & ISO Accredited', icon: '🏥' },
+              { value: '50K+', label: 'Patients Helped', sublabel: 'From 80+ Countries', icon: '👥' },
+              { value: '25+', label: 'Medical Specialties', sublabel: 'Comprehensive Coverage', icon: '⚕️' },
+              { value: '98%', label: 'Satisfaction Rate', sublabel: 'Patient Approved', icon: '⭐' },
+            ].map((stat, index) => (
+              <div key={index} className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 text-center">
+                <div className="text-4xl mb-3">{stat.icon}</div>
+                <div className="text-5xl font-bold mb-2 text-blue-200">{stat.value}</div>
+                <div className="text-blue-100 text-lg font-semibold mb-1">{stat.label}</div>
+                <div className="text-blue-200 text-sm">{stat.sublabel}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Why Turkey Section */}
-      <div className="bg-gray-50 py-16">
+      {/* Enhanced Why Turkey Section */}
+      <div className="bg-gradient-to-b from-white to-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Turkey for Medical Treatment?</h2>
-            <p className="text-xl text-gray-600">Turkey has become a global leader in medical tourism, offering world-class healthcare at affordable prices</p>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">Why Choose Turkey for Medical Treatment?</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Turkey has become a global leader in medical tourism, offering world-class healthcare at affordable prices</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="text-4xl mb-4">💰</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">60-75% Cost Savings</h3>
-              <p className="text-gray-700">
-                Medical procedures in Turkey cost 60-75% less than in Western countries while maintaining 
-                the same high quality standards. Save thousands without compromising on care.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="text-4xl mb-4">🏆</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">World-Class Facilities</h3>
-              <p className="text-gray-700">
-                Over 50 JCI-accredited hospitals and clinics with state-of-the-art equipment, internationally 
-                trained surgeons, and modern medical technology.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <div className="text-4xl mb-4">✈️</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Easy Travel & Tourism</h3>
-              <p className="text-gray-700">
-                Combine your medical treatment with a beautiful vacation. Turkey offers stunning destinations, 
-                rich culture, and excellent hospitality for international patients.
-              </p>
-            </div>
+            {[
+              { 
+                icon: '💰', 
+                title: '60-75% Cost Savings', 
+                description: 'Medical procedures in Turkey cost 60-75% less than in Western countries while maintaining the same high quality standards. Save thousands without compromising on care.',
+                gradient: 'from-yellow-400 to-orange-500'
+              },
+              { 
+                icon: '🏆', 
+                title: 'World-Class Facilities', 
+                description: 'Over 50 JCI-accredited hospitals and clinics with state-of-the-art equipment, internationally trained surgeons, and modern medical technology.',
+                gradient: 'from-blue-400 to-indigo-500'
+              },
+              { 
+                icon: '✈️', 
+                title: 'Easy Travel & Tourism', 
+                description: 'Combine your medical treatment with a beautiful vacation. Turkey offers stunning destinations, rich culture, and excellent hospitality for international patients.',
+                gradient: 'from-purple-400 to-pink-500'
+              },
+            ].map((feature, index) => (
+              <div key={index} className="bg-white rounded-3xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group border border-gray-100">
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  {feature.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">{feature.title}</h3>
+                <p className="text-gray-700 leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Free Consultation Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-800 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 text-white">
-            <h2 className="text-4xl font-bold mb-4">📧 Get Free Consultation & Personalized Quote</h2>
-            <p className="text-xl text-blue-100 mb-2">
+      {/* Enhanced Free Consultation Section */}
+      <div className="bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 text-white">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6">
+              <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+              <span className="text-sm font-medium">100% Free Consultation</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">Get Free Consultation & Personalized Quote</h2>
+            <p className="text-xl text-blue-100 mb-2 max-w-3xl mx-auto">
               Fill out the form below and receive personalized treatment recommendations and quotes from verified clinics
             </p>
-            <p className="text-lg text-blue-200">
+            <p className="text-lg text-blue-200 max-w-2xl mx-auto">
               Our medical tourism experts will contact you within 24 hours via email with detailed information, pricing, and treatment plans
             </p>
           </div>

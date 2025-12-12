@@ -57,16 +57,6 @@ export default function ModernHeader() {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
-            <Link
-              href="/admin"
-              className={`ml-4 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                isScrolled 
-                  ? 'text-gray-700 hover:bg-gray-100' 
-                  : 'text-white/90 hover:bg-white/10'
-              }`}
-            >
-              Admin
-            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -102,7 +92,6 @@ export default function ModernHeader() {
                 { href: '/about', label: 'About' },
                 { href: '/treatments', label: 'Treatments' },
                 { href: '/contact', label: 'Contact' },
-                { href: '/admin', label: 'Admin' },
               ].map((item) => (
                 <Link
                   key={item.href}

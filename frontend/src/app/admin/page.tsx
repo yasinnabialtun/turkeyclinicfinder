@@ -29,7 +29,6 @@ export default function AdminDashboard() {
             <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">Admin User</span>
-              <button className="text-sm text-red-600 hover:text-red-700">Logout</button>
             </div>
           </div>
         </div>

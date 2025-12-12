@@ -32,7 +32,23 @@ class APIClient {
     this.client.interceptors.response.use(
       (response) => response,
       async (error: AxiosError) => {
-        // Simple error handling without authentication redirects
+        // Enhanced error handling
+        if (error.response) {
+          // Server responded with error status
+          const status = error.response.status;
+          if (status === 401) {
+            // Clear invalid token
+            if (typeof window !== 'undefined') {
+              localStorage.removeItem('access_token');
+            }
+          }
+        } else if (error.request) {
+          // Request was made but no response received
+          console.error('Network error:', error.message);
+        } else {
+          // Something else happened
+          console.error('Error:', error.message);
+        }
         return Promise.reject(error);
       }
     );
@@ -119,8 +135,17 @@ class APIClient {
     page?: number;
     page_size?: number;
   }) {
-    const response = await this.client.get('/v1/leads', { params });
-    return response.data;
+    try {
+      const response = await this.client.get('/leads', { params });
+      return response.data;
+    } catch (error: any) {
+      console.error('Error fetching leads:', error);
+      return {
+        success: false,
+        data: { items: [], total: 0 },
+        message: error.response?.data?.detail || 'Failed to fetch leads',
+      };
+    }
   }
 
   async createLead(data: {
@@ -142,9 +167,10 @@ class APIClient {
     preferred_language?: string;
   }): Promise<{ success: boolean; data?: any; message?: string }> {
     try {
-      const response = await this.client.post('/v1/leads/', data);
+      const response = await this.client.post('/leads', data);
       return { success: true, data: response.data.data || response.data };
     } catch (error: any) {
+      console.error('Error creating lead:', error);
       return {
         success: false,
         message: error.response?.data?.detail || 'Failed to submit consultation request',

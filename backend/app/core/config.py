@@ -1,9 +1,9 @@
 """
 Application configuration using Pydantic settings
 """
-from typing import List, Optional
+from typing import List, Optional, Union
 from pydantic_settings import BaseSettings
-from pydantic import Field
+from pydantic import Field, field_validator
 
 
 class Settings(BaseSettings):
@@ -13,10 +13,19 @@ class Settings(BaseSettings):
     APP_NAME: str = "TurkeyClinicFinder"
     DEBUG: bool = Field(default=False, env="DEBUG")
     SECRET_KEY: str = Field(..., env="SECRET_KEY")
-    ALLOWED_ORIGINS: List[str] = Field(
+    ALLOWED_ORIGINS: Union[List[str], str] = Field(
         default=["http://localhost:3000", "http://localhost:3001"],
         env="ALLOWED_ORIGINS",
     )
+
+    @field_validator("ALLOWED_ORIGINS", mode="before")
+    @classmethod
+    def parse_allowed_origins(cls, v):
+        """Parse ALLOWED_ORIGINS from string or list"""
+        if isinstance(v, str):
+            # Split by comma and strip whitespace
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
+        return v
     ALLOWED_HOSTS: List[str] = Field(
         default=["localhost", "127.0.0.1"],
         env="ALLOWED_HOSTS",

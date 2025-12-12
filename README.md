@@ -1,6 +1,14 @@
 # Turkey Clinic Finder
 
-A comprehensive medical tourism marketplace platform for finding and comparing clinics in Turkey. Built with Next.js, FastAPI, PostgreSQL, and AI-powered matching.
+Temiz ve basit medical tourism platformu. Next.js + Firebase + Vercel ile çalışır.
+
+**🚀 Hızlı Başlangıç:**
+```powershell
+.\scripts\basit_kurulum.ps1
+npm run dev
+```
+
+Detaylı kurulum: [BASIT_KURULUM.md](BASIT_KURULUM.md)
 
 ## Features
 
@@ -40,6 +48,27 @@ A comprehensive medical tourism marketplace platform for finding and comparing c
 
 ## Quick Start
 
+### 🚀 Hızlı Kurulum (Firebase + Vercel - Önerilen)
+
+**En kolay yöntem! Docker, PostgreSQL, Redis gerekmez.**
+
+```powershell
+# Kurulum scriptini çalıştırın
+.\scripts\setup_firebase_vercel.ps1
+
+# Firebase projesi oluşturun ve yapılandırın
+# Detaylı rehber: FIREBASE_VERCEL_KURULUM.md
+```
+
+**Avantajlar:**
+- ✅ Ücretsiz başlangıç
+- ✅ Otomatik ölçeklenme
+- ✅ SSL dahil
+- ✅ CDN dahil
+- ✅ 15 dakikada hazır!
+
+### 🐳 Alternatif: Docker ile Kurulum
+
 ### Prerequisites
 
 * Docker and Docker Compose
@@ -54,17 +83,25 @@ A comprehensive medical tourism marketplace platform for finding and comparing c
    cd turkeyclinicfinder
    ```
 
-2. **Copy environment file**
+2. **Run setup script (Windows PowerShell)**
+   ```powershell
+   .\scripts\setup.ps1
+   ```
+   This will create `.env` file and generate a secure `SECRET_KEY`.
+
+   **Or manually:**
    ```bash
    cp .env.example .env
+   # Edit .env and set SECRET_KEY (generate with: python -c "import secrets; print(secrets.token_urlsafe(32))")
    ```
 
-3. **Update `.env` with your configuration**
-   * Set `SECRET_KEY` to a secure random string
-   * Add `OPENAI_API_KEY` if you want AI features
-   * Configure other services as needed
+3. **Quick start (Windows PowerShell)**
+   ```powershell
+   .\scripts\quick_start.ps1
+   ```
+   This will start all services and run migrations automatically.
 
-4. **Start services with Docker Compose**
+   **Or manually:**
    ```bash
    docker-compose up --build
    ```
@@ -144,11 +181,14 @@ A comprehensive medical tourism marketplace platform for finding and comparing c
 
 See `.env.example` for all required environment variables. Key variables:
 
-* `DATABASE_URL` - PostgreSQL connection string
-* `REDIS_URL` - Redis connection string
-* `SECRET_KEY` - Secret key for JWT tokens (required)
+* `SECRET_KEY` - Secret key for JWT tokens (required) - Generate with: `python -c "import secrets; print(secrets.token_urlsafe(32))"`
+* `DATABASE_URL` - PostgreSQL connection string (required)
+* `REDIS_URL` - Redis connection string (required)
 * `OPENAI_API_KEY` - OpenAI API key for AI features (optional)
 * `NEXT_PUBLIC_API_URL` - Backend API URL for frontend
+* `ALLOWED_ORIGINS` - Comma-separated list of allowed CORS origins
+
+**📖 For detailed setup instructions, see [SETUP.md](SETUP.md)**
 
 ## API Documentation
 
@@ -249,9 +289,6 @@ alembic downgrade -1
    docker-compose -f docker-compose.prod.yml up -d
    ```
 
-### Kubernetes (Optional)
-
-Kubernetes manifests are available in `/infra/k8s` directory.
 
 ## Project Structure
 
@@ -275,8 +312,6 @@ turkeyclinicfinder/
 │   │   └── lib/         # Utilities, API client
 │   └── public/          # Static assets
 ├── scripts/             # Utility scripts
-├── docs/                # Documentation
-├── infra/               # Infrastructure configs
 └── docker-compose.yml   # Docker Compose config
 ```
 
@@ -306,7 +341,6 @@ MIT License - see LICENSE file for details
 For issues and questions:
 
 * Open an issue on GitHub
-* Check the documentation in `/docs`
 
 ## Roadmap
 

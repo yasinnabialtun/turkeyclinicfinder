@@ -45,15 +45,25 @@ async def create_lead(
     for key in metadata_fields.keys():
         lead_dict.pop(key, None)
     
-    lead = Lead(
-        **lead_dict,
-        metadata=metadata_fields,
-        user_id=current_user.id if current_user else None,
-        status=LeadStatus.NEW.value,
-    )
-    db.add(lead)
-    db.commit()
-    db.refresh(lead)
+    try:
+        lead = Lead(
+            **lead_dict,
+            metadata=metadata_fields,
+            user_id=current_user.id if current_user else None,
+            status=LeadStatus.NEW.value,
+        )
+        db.add(lead)
+        db.commit()
+        db.refresh(lead)
+    except Exception as e:
+        db.rollback()
+        import structlog
+        logger = structlog.get_logger()
+        logger.error("create_lead_error", error=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create lead",
+        )
 
     # Send email notifications
     try:

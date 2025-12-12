@@ -51,7 +51,10 @@ def decode_token(token: str) -> Optional[dict]:
     """Decode and verify a JWT token"""
     try:
         payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[settings.JWT_ALGORITHM]
+            token, 
+            settings.SECRET_KEY, 
+            algorithms=[settings.JWT_ALGORITHM],
+            options={"verify_signature": True, "verify_exp": True, "verify_iat": True}
         )
         return payload
     except JWTError:

@@ -67,7 +67,7 @@ async def get_current_clinic_owner(
     return current_user
 
 
-def get_optional_user(
+async def get_optional_user(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(
         HTTPBearer(auto_error=False)
     ),
@@ -77,7 +77,7 @@ def get_optional_user(
     if credentials is None:
         return None
     try:
-        return get_current_user(credentials, db)
+        return await get_current_user(credentials, db)
     except HTTPException:
         return None
 

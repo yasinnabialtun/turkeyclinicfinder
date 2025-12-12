@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { apiClient } from '../../../lib/api';
+import { getLeads, updateLeadStatus } from '../../../lib/supabase';
 
 interface Lead {
   id: number;
@@ -35,17 +35,17 @@ export default function LeadsManagementPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await apiClient.getLeads({
+      const response = await getLeads({
         status: statusFilter !== 'all' ? statusFilter : undefined,
-        page,
-        page_size: pageSize,
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
       });
       
       if (response.success) {
         setLeads(response.data.items || []);
         setTotal(response.data.total || 0);
       } else {
-        setError('Failed to load leads. Please check authentication.');
+        setError('Failed to load leads.');
       }
     } catch (err) {
       setError('Error loading leads');
@@ -55,13 +55,18 @@ export default function LeadsManagementPage() {
     }
   };
 
-  const updateLeadStatus = async (leadId: number, newStatus: string) => {
+  const handleUpdateStatus = async (leadId: number, newStatus: string) => {
     try {
-      // TODO: Implement PUT endpoint for updating lead status
-      // For now, you can update via database directly
-      alert(`Lead status update functionality needs to be implemented in backend`);
+      const response = await updateLeadStatus(leadId, newStatus);
+      if (response.success) {
+        // Refresh leads
+        fetchLeads();
+      } else {
+        alert('Failed to update lead status');
+      }
     } catch (err) {
       console.error('Error updating lead status:', err);
+      alert('Error updating lead status');
     }
   };
 
@@ -199,7 +204,7 @@ export default function LeadsManagementPage() {
                       </button>
                       <select
                         value={lead.status}
-                        onChange={(e) => updateLeadStatus(lead.id, e.target.value)}
+                        onChange={(e) => handleUpdateStatus(lead.id, e.target.value)}
                         className="text-xs border border-gray-300 rounded px-2 py-1"
                       >
                         <option value="new">New</option>

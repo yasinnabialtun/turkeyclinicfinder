@@ -63,6 +63,10 @@ CREATE POLICY "Clinics are viewable by everyone" ON clinics
 CREATE POLICY "Anyone can insert leads" ON leads
   FOR INSERT WITH CHECK (true);
 
+-- Leads update policy (admin için - şimdilik herkes güncelleyebilir)
+CREATE POLICY "Anyone can update leads" ON leads
+  FOR UPDATE USING (true);
+
 -- Updated_at trigger (otomatik güncelleme)
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$

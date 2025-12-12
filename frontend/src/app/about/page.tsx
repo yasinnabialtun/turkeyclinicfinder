@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { siteConfig } from '../lib/seo';
+import { siteConfig } from '../../lib/seo';
 
 export const metadata: Metadata = {
   title: 'About Us - Turkey Clinic Finder | Your Medical Tourism Partner',

@@ -22,35 +22,26 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">Admin User</span>
-            </div>
-          </div>
-        </div>
-      </header>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation Tabs */}
         <div className="bg-white rounded-lg shadow mb-6">
-          <nav className="flex space-x-8 px-6" aria-label="Tabs">
+          <nav className="flex space-x-8 px-6" aria-label="Sekmeler">
               {[
                 { id: 'dashboard', name: 'Dashboard', icon: '📊' },
-                { id: 'leads', name: 'Leads', icon: '📧' },
-                { id: 'clinics', name: 'Clinics', icon: '🏥' },
-                { id: 'ads', name: 'Ad Management', icon: '📢' },
+                { id: 'leads', name: 'Müşteri Talepleri', icon: '📧' },
+                { id: 'clinics', name: 'Klinikler', icon: '🏥' },
+                { id: 'ads', name: 'Reklam Yönetimi', icon: '📢' },
                 { id: 'adsense', name: 'AdSense', icon: '💰' },
-                { id: 'content', name: 'Content', icon: '📝' },
-                { id: 'users', name: 'Users', icon: '👥' },
-                { id: 'settings', name: 'Settings', icon: '⚙️' },
+                { id: 'content', name: 'İçerik', icon: '📝' },
+                { id: 'users', name: 'Kullanıcılar', icon: '👥' },
+                { id: 'settings', name: 'Ayarlar', icon: '⚙️' },
               ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  router.push(`/admin/${tab.id === 'dashboard' ? '' : tab.id}`);
+                }}
                 className={`${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
@@ -72,7 +63,7 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Clinics</p>
+                    <p className="text-sm text-gray-600">Toplam Klinik</p>
                     <p className="text-3xl font-bold text-gray-900 mt-2">{stats.totalClinics}</p>
                   </div>
                   <div className="text-4xl">🏥</div>
@@ -81,7 +72,7 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Users</p>
+                    <p className="text-sm text-gray-600">Toplam Kullanıcı</p>
                     <p className="text-3xl font-bold text-gray-900 mt-2">{stats.totalUsers}</p>
                   </div>
                   <div className="text-4xl">👥</div>
@@ -90,7 +81,7 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Bookings</p>
+                    <p className="text-sm text-gray-600">Toplam Başvuru</p>
                     <p className="text-3xl font-bold text-gray-900 mt-2">{stats.totalBookings}</p>
                   </div>
                   <div className="text-4xl">📅</div>
@@ -99,7 +90,7 @@ export default function AdminDashboard() {
               <div className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Revenue</p>
+                    <p className="text-sm text-gray-600">Toplam Gelir</p>
                     <p className="text-3xl font-bold text-gray-900 mt-2">${stats.totalRevenue.toLocaleString()}</p>
                   </div>
                   <div className="text-4xl">💰</div>
@@ -109,28 +100,28 @@ export default function AdminDashboard() {
 
             {/* Quick Actions */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Hızlı İşlemler</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Link
                   href="/admin/clinics/new"
                   className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 transition text-center"
                 >
                   <div className="text-3xl mb-2">➕</div>
-                  <p className="font-semibold text-gray-900">Add New Clinic</p>
+                  <p className="font-semibold text-gray-900">Yeni Klinik Ekle</p>
                 </Link>
                 <Link
                   href="/admin/ads"
                   className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 transition text-center"
                 >
                   <div className="text-3xl mb-2">📢</div>
-                  <p className="font-semibold text-gray-900">Manage Ads</p>
+                  <p className="font-semibold text-gray-900">Reklamları Yönet</p>
                 </Link>
                 <Link
                   href="/admin/content/blog/new"
                   className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 transition text-center"
                 >
                   <div className="text-3xl mb-2">📝</div>
-                  <p className="font-semibold text-gray-900">New Blog Post</p>
+                  <p className="font-semibold text-gray-900">Yeni Blog Yazısı</p>
                 </Link>
               </div>
             </div>
@@ -140,38 +131,32 @@ export default function AdminDashboard() {
         {/* Leads Tab */}
         {activeTab === 'leads' && (
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-bold mb-6">Lead Management</h2>
+            <h2 className="text-2xl font-bold mb-6">Müşteri Talepleri Yönetimi</h2>
             <p className="text-gray-600 mb-4">
-              View and manage consultation requests from patients. Leads are automatically collected from consultation forms.
+              Hastalardan gelen danışmanlık taleplerini görüntüleyin ve yönetin. Talepler otomatik olarak danışmanlık formlarından toplanır.
             </p>
             <Link href="/admin/leads" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-6 inline-block">
-              View All Leads
+              Tüm Talepleri Görüntüle
             </Link>
             <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
               <p className="text-sm text-gray-700">
-                <strong>How it works:</strong> When patients fill out consultation forms on your website, 
-                leads are automatically saved to the database and email notifications are sent to <strong>info@ynadijital.com</strong>.
+                <strong>Nasıl Çalışır:</strong> Hastalar web sitenizdeki danışmanlık formlarını doldurduğunda, 
+                talepler otomatik olarak veritabanına kaydedilir ve <strong>info@ynadijital.com</strong> adresine e-posta bildirimleri gönderilir.
               </p>
             </div>
           </div>
         )}
 
-        {/* Leads Tab */}
-        {activeTab === 'leads' && (
+        {/* Clinics Tab */}
+        {activeTab === 'clinics' && (
           <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-2xl font-bold mb-6">Lead Management</h2>
+            <h2 className="text-2xl font-bold mb-6">Klinik Yönetimi</h2>
             <p className="text-gray-600 mb-4">
-              View and manage consultation requests from patients. Leads are automatically collected from consultation forms.
+              Klinikleri ekleyin, düzenleyin veya kaldırın. Klinik bilgilerini güncelleyin.
             </p>
-            <Link href="/admin/leads" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-6 inline-block">
-              View All Leads
+            <Link href="/admin/clinics" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-6 inline-block">
+              Klinikleri Yönet
             </Link>
-            <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
-              <p className="text-sm text-gray-700">
-                <strong>How it works:</strong> When patients fill out consultation forms on your website, 
-                leads are automatically saved to the database and email notifications are sent to <strong>info@ynadijital.com</strong>.
-              </p>
-            </div>
           </div>
         )}
 
@@ -179,12 +164,12 @@ export default function AdminDashboard() {
         {activeTab === 'ads' && (
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Ad Management</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Reklam Yönetimi</h2>
               <Link
                 href="/admin/ads/new"
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
               >
-                + Add New Ad
+                + Yeni Reklam Ekle
               </Link>
             </div>
             <AdManagementContent />
@@ -200,25 +185,49 @@ export default function AdminDashboard() {
                 href="/admin/adsense"
                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
               >
-                Manage AdSense
+                AdSense Yönet
               </Link>
             </div>
             <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">AdSense Status</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">AdSense Durumu</h3>
               <p className="text-gray-700 mb-4">
-                <strong>Publisher ID:</strong> pub-3511256754647083
+                <strong>Yayıncı ID:</strong> pub-3511256754647083
               </p>
               <p className="text-gray-700 mb-4">
-                <strong>Status:</strong> <span className="text-green-600 font-semibold">Active</span>
+                <strong>Durum:</strong> <span className="text-green-600 font-semibold">Aktif</span>
               </p>
               <p className="text-gray-700 text-sm">
-                Configure your AdSense ad units and manage ad placements from the AdSense management page.
+                AdSense reklam birimlerinizi yapılandırın ve reklam yerleşimlerini AdSense yönetim sayfasından yönetin.
               </p>
             </div>
           </div>
         )}
 
-        {/* Other tabs content will be added */}
+        {/* Content Tab */}
+        {activeTab === 'content' && (
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-6">İçerik Yönetimi</h2>
+            <p className="text-gray-600 mb-4">
+              Blog yazılarını, makaleleri ve statik sayfaları yönetin.
+            </p>
+            <Link href="/admin/content" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-6 inline-block">
+              İçerikleri Yönet
+            </Link>
+          </div>
+        )}
+
+        {/* Settings Tab */}
+        {activeTab === 'settings' && (
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-6">Ayarlar</h2>
+            <p className="text-gray-600 mb-4">
+              Genel uygulama ayarlarını yapılandırın.
+            </p>
+            <Link href="/admin/settings" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-6 inline-block">
+              Ayarları Yapılandır
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -237,20 +246,19 @@ function AdManagementContent() {
         <div key={ad.id} className="border rounded-lg p-4 flex items-center justify-between">
           <div>
             <h3 className="font-semibold text-gray-900">
-              {ad.position.charAt(0).toUpperCase() + ad.position.slice(1)} - {ad.size}
+              {ad.position === 'top' ? 'Üst' : ad.position === 'sidebar' ? 'Kenar Çubuğu' : 'Alt'} - {ad.size === 'large' ? 'Büyük' : 'Orta'}
             </h3>
-            <p className="text-sm text-gray-600">Type: {ad.type}</p>
+            <p className="text-sm text-gray-600">Tür: {ad.type === 'banner' ? 'Banner' : ad.type === 'google-adsense' ? 'Google AdSense' : 'Özel'}</p>
           </div>
           <div className="flex items-center space-x-4">
             <span className={`px-3 py-1 rounded-full text-sm ${ad.enabled ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-              {ad.enabled ? 'Enabled' : 'Disabled'}
+              {ad.enabled ? 'Aktif' : 'Pasif'}
             </span>
-            <button className="text-blue-600 hover:text-blue-700">Edit</button>
-            <button className="text-red-600 hover:text-red-700">Delete</button>
+            <button className="text-blue-600 hover:text-blue-700">Düzenle</button>
+            <button className="text-red-600 hover:text-red-700">Sil</button>
           </div>
         </div>
       ))}
     </div>
   );
 }
-

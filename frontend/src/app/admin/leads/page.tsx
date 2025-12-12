@@ -37,18 +37,18 @@ export default function LeadsManagementPage() {
     try {
       const response = await getLeads({
         status: statusFilter !== 'all' ? statusFilter : undefined,
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
+        page,
+        pageSize,
       });
       
       if (response.success) {
         setLeads(response.data.items || []);
         setTotal(response.data.total || 0);
       } else {
-        setError('Failed to load leads.');
+        setError('Talepler yüklenemedi.');
       }
     } catch (err) {
-      setError('Error loading leads');
+      setError('Talepler yüklenirken hata oluştu');
       console.error('Error fetching leads:', err);
     } finally {
       setLoading(false);
@@ -59,19 +59,18 @@ export default function LeadsManagementPage() {
     try {
       const response = await updateLeadStatus(leadId, newStatus);
       if (response.success) {
-        // Refresh leads
         fetchLeads();
       } else {
-        alert('Failed to update lead status');
+        alert(`Talep durumu güncellenemedi: ${response.error?.message}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error updating lead status:', err);
-      alert('Error updating lead status');
+      alert('Talep durumu güncellenirken hata oluştu.');
     }
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString('tr-TR', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -97,16 +96,33 @@ export default function LeadsManagementPage() {
     }
   };
 
+  const getStatusLabel = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'new':
+        return 'Yeni';
+      case 'contacted':
+        return 'İletişime Geçildi';
+      case 'qualified':
+        return 'Nitelikli';
+      case 'converted':
+        return 'Dönüştürüldü';
+      case 'lost':
+        return 'Kayıp';
+      default:
+        return status;
+    }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2 text-gray-900">Lead Management</h1>
-        <p className="text-gray-600">View and manage consultation requests from patients</p>
+        <h1 className="text-3xl font-bold mb-2 text-gray-900">Müşteri Talepleri Yönetimi</h1>
+        <p className="text-gray-600">Hastalardan gelen danışmanlık taleplerini görüntüleyin ve yönetin</p>
       </div>
 
       {/* Filters */}
       <div className="mb-6 flex items-center space-x-4">
-        <label className="text-sm font-medium text-gray-700">Filter by Status:</label>
+        <label className="text-sm font-medium text-gray-700">Duruma Göre Filtrele:</label>
         <select
           value={statusFilter}
           onChange={(e) => {
@@ -115,36 +131,33 @@ export default function LeadsManagementPage() {
           }}
           className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="all">All Leads</option>
-          <option value="new">New</option>
-          <option value="contacted">Contacted</option>
-          <option value="qualified">Qualified</option>
-          <option value="converted">Converted</option>
-          <option value="lost">Lost</option>
+          <option value="all">Tüm Talepler</option>
+          <option value="new">Yeni</option>
+          <option value="contacted">İletişime Geçildi</option>
+          <option value="qualified">Nitelikli</option>
+          <option value="converted">Dönüştürüldü</option>
+          <option value="lost">Kayıp</option>
         </select>
         <div className="text-sm text-gray-600">
-          Total: <strong>{total}</strong> leads
+          Toplam: <strong>{total}</strong> talep
         </div>
       </div>
 
       {error && (
         <div className="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 mb-6">
           <p className="text-red-700 text-sm">{error}</p>
-          <p className="text-red-600 text-xs mt-2">
-            Note: This page requires backend authentication. Make sure you're logged in as admin or clinic owner.
-          </p>
         </div>
       )}
 
       {loading ? (
         <div className="text-center py-12">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          <p className="mt-4 text-gray-600">Loading leads...</p>
+          <p className="mt-4 text-gray-600">Talepler yükleniyor...</p>
         </div>
       ) : leads.length === 0 ? (
         <div className="text-center py-12 text-gray-500">
-          <p className="text-lg">No leads found.</p>
-          <p className="text-sm mt-2">Leads will appear here when patients submit consultation forms.</p>
+          <p className="text-lg">Talep bulunamadı.</p>
+          <p className="text-sm mt-2">Hastalar danışmanlık formlarını doldurduğunda talepler burada görünecek.</p>
         </div>
       ) : (
         <>
@@ -153,14 +166,14 @@ export default function LeadsManagementPage() {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Treatment</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Country</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">İsim</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">E-posta</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telefon</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tedavi</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ülke</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Durum</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarih</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">İşlemler</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -186,32 +199,32 @@ export default function LeadsManagementPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{lead.country || '-'}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(lead.status)}`}>
-                        {lead.status}
+                        {getStatusLabel(lead.status)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{formatDate(lead.created_at)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <button
                         onClick={() => {
-                          const message = lead.message ? `\n\nMessage: ${lead.message}` : '';
-                          const budget = lead.budget ? `\nBudget: ${lead.budget}` : '';
-                          const date = lead.preferred_date ? `\nPreferred Date: ${lead.preferred_date}` : '';
-                          window.location.href = `mailto:${lead.email}?subject=Re: Consultation Request&body=Dear ${lead.name},%0D%0A%0D%0AThank you for your interest...${message}${budget}${date}`;
+                          const message = lead.message ? `\n\nMesaj: ${lead.message}` : '';
+                          const budget = lead.budget ? `\nBütçe: ${lead.budget}` : '';
+                          const date = lead.preferred_date ? `\nTercih Edilen Tarih: ${lead.preferred_date}` : '';
+                          window.location.href = `mailto:${lead.email}?subject=Danışmanlık Talebi Hakkında&body=Sayın ${lead.name},%0D%0A%0D%0Aİlginiz için teşekkür ederiz...${message}${budget}${date}`;
                         }}
                         className="text-blue-600 hover:text-blue-700 mr-3"
                       >
-                        Email
+                        E-posta
                       </button>
                       <select
                         value={lead.status}
                         onChange={(e) => handleUpdateStatus(lead.id, e.target.value)}
                         className="text-xs border border-gray-300 rounded px-2 py-1"
                       >
-                        <option value="new">New</option>
-                        <option value="contacted">Contacted</option>
-                        <option value="qualified">Qualified</option>
-                        <option value="converted">Converted</option>
-                        <option value="lost">Lost</option>
+                        <option value="new">Yeni</option>
+                        <option value="contacted">İletişime Geçildi</option>
+                        <option value="qualified">Nitelikli</option>
+                        <option value="converted">Dönüştürüldü</option>
+                        <option value="lost">Kayıp</option>
                       </select>
                     </td>
                   </tr>
@@ -224,7 +237,7 @@ export default function LeadsManagementPage() {
           {total > pageSize && (
             <div className="mt-6 flex items-center justify-between">
               <div className="text-sm text-gray-600">
-                Showing {(page - 1) * pageSize + 1} to {Math.min(page * pageSize, total)} of {total} leads
+                {(page - 1) * pageSize + 1} - {Math.min(page * pageSize, total)} arası, toplam {total} talep gösteriliyor
               </div>
               <div className="flex space-x-2">
                 <button
@@ -232,14 +245,14 @@ export default function LeadsManagementPage() {
                   disabled={page === 1}
                   className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Previous
+                  Önceki
                 </button>
                 <button
                   onClick={() => setPage(page + 1)}
                   disabled={page * pageSize >= total}
                   className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Next
+                  Sonraki
                 </button>
               </div>
             </div>
@@ -249,4 +262,3 @@ export default function LeadsManagementPage() {
     </div>
   );
 }
-

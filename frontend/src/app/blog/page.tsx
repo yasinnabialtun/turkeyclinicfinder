@@ -200,22 +200,43 @@ export default function BlogPage() {
                 href={`/blog/${article.slug}`}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
               >
-                <div className={`h-48 ${article.image} relative`}>
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white text-gray-900 px-3 py-1 rounded-full text-sm font-semibold">
+                <div className={`h-48 ${article.image} relative overflow-hidden`}>
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="bg-white/95 backdrop-blur-sm text-gray-900 px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
                       {article.category}
                     </span>
                   </div>
+                  {/* Decorative Pattern Overlay */}
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="absolute inset-0" style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20.5z'/%3E%3C/g%3E%3C/svg%3E")`,
+                    }}></div>
+                  </div>
+                  {/* Medical Icon Overlay */}
+                  <div className="absolute bottom-4 right-4 text-white/30 text-6xl font-bold">
+                    {article.category === 'Hair Transplant' ? '💇' : 
+                     article.category === 'Dental' ? '🦷' : 
+                     article.category === 'Plastic Surgery' ? '✨' : 
+                     article.category === 'Fertility' ? '👶' : 
+                     article.category === 'Cost Guide' ? '💰' : 
+                     article.category === 'Safety Guide' ? '🛡️' : 
+                     article.category === 'Recovery Guide' ? '🏥' : 
+                     article.category === 'Medical Tourism' ? '✈️' : '🏥'}
+                  </div>
                 </div>
                 <div className="p-6">
-                  <h2 className="text-2xl font-bold mb-3 group-hover:text-blue-600 transition">
+                  <h2 className="text-2xl font-bold mb-3 group-hover:text-blue-600 transition line-clamp-2">
                     {article.title}
                   </h2>
-                  <p className="text-gray-600 mb-4 line-clamp-3">{article.excerpt}</p>
+                  <p className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">{article.excerpt}</p>
                   <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>{new Date(article.publishedAt).toLocaleDateString()}</span>
-                    <span className="text-blue-600 font-semibold group-hover:text-blue-700">
-                      Read more →
+                    <span>{new Date(article.publishedAt).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <span className="text-blue-600 font-semibold group-hover:text-blue-700 flex items-center gap-1">
+                      Devamını Oku
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
                     </span>
                   </div>
                 </div>

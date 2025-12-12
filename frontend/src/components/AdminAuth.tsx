@@ -13,7 +13,6 @@ export default function AdminAuth({ children }: AdminAuthProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if already authenticated
     const authStatus = localStorage.getItem('admin_authenticated');
     if (authStatus === 'true') {
       setIsAuthenticated(true);
@@ -25,14 +24,13 @@ export default function AdminAuth({ children }: AdminAuthProps) {
     e.preventDefault();
     setError('');
 
-    // Admin password - environment variable'dan al veya default
     const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123';
 
     if (password === adminPassword) {
       setIsAuthenticated(true);
       localStorage.setItem('admin_authenticated', 'true');
     } else {
-      setError('Incorrect password. Please try again.');
+      setError('Hatalı şifre. Lütfen tekrar deneyin.');
       setPassword('');
     }
   };
@@ -56,14 +54,14 @@ export default function AdminAuth({ children }: AdminAuthProps) {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Admin Login</h1>
-            <p className="text-gray-600">Enter password to access admin panel</p>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Admin Girişi</h1>
+            <p className="text-gray-600">Admin paneline erişmek için şifrenizi girin</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
-                Password
+                Şifre
               </label>
               <input
                 type="password"
@@ -71,7 +69,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter admin password"
+                placeholder="Admin şifresini girin"
                 required
                 autoFocus
               />
@@ -87,12 +85,12 @@ export default function AdminAuth({ children }: AdminAuthProps) {
               type="submit"
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              Login
+              Giriş Yap
             </button>
           </form>
 
           <p className="mt-4 text-xs text-gray-500 text-center">
-            Default password: admin123 (Change via NEXT_PUBLIC_ADMIN_PASSWORD)
+            Varsayılan şifre: admin123 (NEXT_PUBLIC_ADMIN_PASSWORD ile değiştirilebilir)
           </p>
         </div>
       </div>
@@ -101,7 +99,6 @@ export default function AdminAuth({ children }: AdminAuthProps) {
 
   return (
     <>
-      {/* Logout button in header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
           <div className="flex justify-end">
@@ -109,7 +106,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
               onClick={handleLogout}
               className="text-sm text-red-600 hover:text-red-700"
             >
-              Logout
+              Çıkış Yap
             </button>
           </div>
         </div>
@@ -118,4 +115,3 @@ export default function AdminAuth({ children }: AdminAuthProps) {
     </>
   );
 }
-

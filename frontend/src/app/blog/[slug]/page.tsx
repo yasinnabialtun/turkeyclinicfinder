@@ -128,7 +128,7 @@ Most dental procedures in Turkey are performed with the same standards as Wester
   const articleSchema = generateArticleSchema({
     title: article.title,
     description: article.excerpt,
-    datePublished: article.publishedAt,
+    publishedAt: article.publishedAt,
     author: article.author,
     url: `/blog/${slug}`,
   });

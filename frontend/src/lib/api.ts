@@ -137,7 +137,7 @@ class APIClient {
   }) {
     try {
       const response = await this.client.get('/leads', { params });
-      return response.data;
+    return response.data;
     } catch (error: any) {
       console.error('Error fetching leads:', error);
       return {

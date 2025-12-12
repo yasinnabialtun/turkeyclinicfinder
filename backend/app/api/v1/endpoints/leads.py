@@ -46,15 +46,15 @@ async def create_lead(
         lead_dict.pop(key, None)
     
     try:
-        lead = Lead(
-            **lead_dict,
-            metadata=metadata_fields,
-            user_id=current_user.id if current_user else None,
-            status=LeadStatus.NEW.value,
-        )
-        db.add(lead)
-        db.commit()
-        db.refresh(lead)
+    lead = Lead(
+        **lead_dict,
+        metadata=metadata_fields,
+        user_id=current_user.id if current_user else None,
+        status=LeadStatus.NEW.value,
+    )
+    db.add(lead)
+    db.commit()
+    db.refresh(lead)
     except Exception as e:
         db.rollback()
         import structlog

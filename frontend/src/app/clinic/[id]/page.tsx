@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Breadcrumbs from '../../../components/Breadcrumbs';
-import ReviewList from '../../../components/ReviewList';
+// Review sistemi kaldırıldı - sadece başvuru ve lead toplama
+import ConsultationForm from '../../../components/ConsultationForm';
 import PriceEstimator from '../../../components/PriceEstimator';
 import AdBanner from '../../../components/AdBanner';
 import { apiClient } from '../../../lib/api';
@@ -84,20 +85,9 @@ export default function ClinicPage() {
                 </svg>
                 <span>{clinic.city}</span>
               </div>
-              {clinic.rating && (
+{clinic.price_range && (
                 <div className="flex items-center">
-                  <div className="flex text-yellow-400 mr-2">
-                    {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        className={`w-5 h-5 ${i < Math.floor(clinic.rating) ? 'fill-current' : 'text-gray-400'}`}
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <span>{clinic.rating.toFixed(1)} ({clinic.review_count || 0} reviews)</span>
+                  <span className="text-blue-100 font-semibold">{clinic.price_range}</span>
                 </div>
               )}
             </div>
@@ -139,8 +129,14 @@ export default function ClinicPage() {
                 </div>
               )}
 
-              {/* Reviews */}
-              <ReviewList clinicId={clinic.id} />
+              {/* Consultation Form - Başvuru Formu */}
+              <div className="bg-white rounded-2xl shadow-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Request a Quote / Teklif Alın</h2>
+                <p className="text-gray-600 mb-6">
+                  Fill out the form below and we'll connect you with this clinic for a personalized quote.
+                </p>
+                <ConsultationForm clinicId={clinic.id} />
+              </div>
             </div>
 
               {/* Sidebar */}

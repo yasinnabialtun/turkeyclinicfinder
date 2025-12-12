@@ -92,37 +92,5 @@ export const createLead = async (leadData: {
   return { success: true, data };
 };
 
-export const getReviews = async (clinicId: number) => {
-  const { data, error } = await supabase
-    .from('reviews')
-    .select('*')
-    .eq('clinic_id', clinicId)
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching reviews:', error);
-    return { success: false, data: [], error };
-  }
-
-  return { success: true, data: data || [] };
-};
-
-export const createReview = async (reviewData: {
-  clinic_id: number;
-  rating: number;
-  content: string;
-}) => {
-  const { data, error } = await supabase
-    .from('reviews')
-    .insert(reviewData)
-    .select()
-    .single();
-
-  if (error) {
-    console.error('Error creating review:', error);
-    return { success: false, error };
-  }
-
-  return { success: true, data };
-};
+// Review sistemi kaldırıldı - sadece başvuru ve lead toplama
 

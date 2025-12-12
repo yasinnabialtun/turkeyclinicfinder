@@ -1,7 +1,9 @@
-import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+'use client';
 
-export const metadata: Metadata = {
+import { ReactNode } from 'react';
+import AdminAuth from '../../components/AdminAuth';
+
+export const metadata = {
   title: 'Admin Panel - Turkey Clinic Finder',
   description: 'Admin panel for managing Turkey Clinic Finder',
   robots: {
@@ -10,17 +12,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // No authentication required - public admin access
-
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {children}
-    </div>
+    <AdminAuth>
+      <div className="min-h-screen bg-gray-50">
+        {children}
+      </div>
+    </AdminAuth>
   );
 }
-

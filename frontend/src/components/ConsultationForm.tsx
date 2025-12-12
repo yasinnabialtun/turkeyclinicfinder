@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { apiClient } from '../lib/api';
+import { createLead } from '../lib/supabase';
 
 interface ConsultationFormProps {
   clinicId?: number;
@@ -37,23 +38,15 @@ export default function ConsultationForm({ clinicId, treatment, className = '' }
     setError(null);
 
     try {
-      const response = await apiClient.createLead({
+      // Supabase'e direkt kaydet
+      const response = await createLead({
+        clinic_id: formData.clinicId || undefined,
         name: formData.name,
         email: formData.email,
-        phone: formData.phone,
+        phone: formData.phone || undefined,
         country: formData.country,
         treatment: formData.treatment || undefined,
-        clinic_id: formData.clinicId || undefined,
         message: formData.message || undefined,
-        preferred_date: formData.preferredDate || undefined,
-        budget: formData.budget || undefined,
-        source: 'website_consultation_form',
-        accommodation_needed: formData.accommodationNeeded,
-        travel_assistance_needed: formData.travelAssistanceNeeded,
-        urgency: formData.urgency,
-        medical_history: formData.medicalHistory,
-        number_of_people: formData.numberOfPeople,
-        preferred_language: formData.preferredLanguage,
       });
 
       if (response.success) {
